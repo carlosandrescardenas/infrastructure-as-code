@@ -1,0 +1,21 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "bento/ubuntu-20.04"
+  config.vm.network :forwarded_port, guest: 85, host: 8085
+  config.vm.network "private_network", ip: "192.168.55.6"
+  config.vm.hostname = "API"
+  config.disksize.size = '70GB'
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.name = "VM_API"
+    vb.cpus = 2
+    vb.memory = 2048
+   end
+ 
+  config.vm.provision "shell", path: 'initial_programs_api.sh'
+    #config.vm.provision "ansible", run: "always" do |ansible|
+	#ansible.playbook = "initial_programs_api_ansible.yml"
+  #end
+end

@@ -1,0 +1,18 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/trusty64"
+  config.vm.network :forwarded_port, guest: 3306, host: 3306
+  config.vm.network "private_network", ip: "192.168.55.7"
+  config.vm.hostname = "BD"
+  config.disksize.size = '70GB'
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.name = "VM_BD"
+    vb.cpus = 2
+    vb.memory = 2048
+   end
+ 
+  config.vm.provision "shell", path: 'initial_programs_bd.sh'
+end
